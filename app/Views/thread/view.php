@@ -10,6 +10,9 @@
 			<?= htmlspecialchars($thread->title) ?>
 		</h1>
 
+		<!-- rating -->
+		<button class="btn btn-success">Beri Rating</button>
+
 		<hr>
 
 		<!-- content -->
