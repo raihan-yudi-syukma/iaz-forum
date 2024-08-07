@@ -18,7 +18,7 @@
 <div class="row">
 
 	<!-- hero -->
-	<div class="col-md-7">
+	<div class="col-md-6">
 		
 		<h5>
 			<a href="https://www.facebook.com/hashtag/adabdulubaruilmu" class="h5 mb-1">#AdabDuluBaruIlmu</a>
@@ -63,10 +63,36 @@
 	<!-- /.hero -->
 
 	<!-- about -->
-	<div class="col-md-4">
+	<div class="col-md-6">
 		<h4 class="mb-1">Halo, teman-teman mahasiswa!</h4>
 		<p class="text-justify lead">Kami dengan bangga mempersembahkan forum online ini sebagai wadah bagi seluruh mahasiswa Manajemen Informatika dan Teknik Komputer untuk saling berbagi informasi, berdiskusi, dan memperluas jaringan. Forum ini dirancang khusus untuk memenuhi kebutuhan akademik dan non-akademik kalian, serta menjadi tempat yang aman dan nyaman untuk berbagi ide, pengalaman, dan pengetahuan.</p>
+
+		<!-- top threads -->
+		<div>
+			<h3 class="text-success font-weight-bold"><i class="fas fa-comments h3"></i> Top Thread</h3>
+			<table class="table table-striped">
+				<thead class="text-white">
+					<th scope="col">#</th>
+					<th scope="col">Judul</th>
+				</thead>
+				<tbody>
+					<?php $i = 1; ?>
+					<?php foreach($topThread->getResult() as $thread) : ?>
+					<tr>
+						<td class="text-success font-weight-bold"><?= $i++ ?></td>
+						<td>
+							<a class="text-decoration-none font-weight-bold" href="<?= base_url('thread/view/'.$thread->thread_id) ?>">
+								<?= htmlspecialchars(substr($thread->title, 0, 50)) ?>
+							</a>
+						</td>
+					</tr>
+					<?php endforeach ?>
+				</tbody>
+			</table>
+		</div>
+	
 	</div>
+
 </div>
 <!-- /.content -->
 

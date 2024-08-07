@@ -9,10 +9,10 @@ class ReplySeeder extends \CodeIgniter\Database\Seeder
 		$faker = \Faker\Factory::create();
 		for ($i = 0; $i < 30; $i++) {
 			$reply = [
-				'thread_id' => 1156,
+				'thread_id' => 1157,
 				'content' => $faker->paragraph(6, true),
 				'created_at' => date('Y-m-d H:i:s'),
-				'created_by' => 202,
+				'created_by' => 168,
 			];
 			echo "Inserting ".($i + 1)." Dummy Data\n";
 			$this->db->table('reply')->insert($reply);

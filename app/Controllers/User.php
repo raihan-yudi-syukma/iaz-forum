@@ -8,6 +8,8 @@ class User extends BaseController
 {
 	// Models
 	protected $userModel;
+	protected $threadModel;
+	protected $replyModel;
 
 	// Controllers.
 	protected $auth;
@@ -21,6 +23,8 @@ class User extends BaseController
 	{
 		// Models.
 		$this->userModel = model('UserModel');
+		$this->threadModel = model('ThreadModel');
+		$this->replyModel = model('ReplyModel');
 
 		// Controllers.
 		$this->auth = new Auth();
@@ -126,10 +130,21 @@ class User extends BaseController
 	// Show user data.
 	public function view($id = null)
 	{
+		// Get user by id.
 		$data['user'] = $this->userModel->find($id);
 		if(!$id || !$data['user']) {
 			throw PageNotFoundException::forPageNotFound();
 		}
+
+		// Get threads by user id.
+		$data['threadCount'] = $this->threadModel
+			->where('created_by', $id)
+			->countAllResults();
+
+		// Get replies by user id.
+		$data['replyCount'] = $this->replyModel
+			->where('created_by', $id)
+			->countAllResults();
 
 		// Set roles and statuses.
 		if ($this->session->role === 'Admin') {

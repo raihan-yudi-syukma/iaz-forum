@@ -61,63 +61,79 @@ $submit = [
 		</div>
 
 		<!-- body -->
-		<div class="card-body row" style="gap: 30px;">
-			<div class="col-sm-2 text-center" id="postedBy">
+		<div class="card-body" style="gap: 30px;">
 
-				<!-- created by -->
-				<div class="mb-2">
-					<div class="mb-1">Diposting oleh:</div>
-					<!-- avatar -->
-					<img src="<?= $thread->avatar ? base_url('uploads/avatar/'.$thread->avatar) : base_url('assets/images/user.jpeg') ?>" alt="<?= htmlspecialchars($thread->username).'\'s user avatar' ?>" class="rounded img-fluid" style="width: 100px; height: 100px">
-					<br>
-					<!-- username -->
-					<a class="font-weight-bold" href="<?= base_url('user/view/'.$thread->username) ?>">
-						<?= htmlspecialchars($thread->username) ?>
-					</a>
-				</div>
-
-				<!-- created at -->
-				<div>
-					<div class="mb-1">Diposting pada:</div>
-					<span class="font-weight-bold"><?= $thread->created_at ?></span>
-				</div>
+			<!-- rating -->
+			<div class="mb-3">
+				<span>Rating: </span>
+				<?php for($i = 0; $i < 5; $i++) : ?>
+				<?php if(($i + 1 ) <= $thread->rating) : ?>
+				<span class="fas fa-star checked"></span>
+				<?php else : ?>
+				<span class="fas fa-star"></span>
+				<?php endif ?>
+				<?php endfor ?>
+				<span>dari <?= $thread->star_count > 0 ? $thread->star_count : 0 ?> user</span>
 			</div>
-			<!-- /.col -->
 			
-			<div class="col">
-				<!-- content -->
-				<div class="mb-5">
-					<?php if(strlen($thread->content) > 500) : ?>
-					<?= substr($thread->content, 0, 200).'...' ?>
-					<?php else : ?>
-					<?= $thread->content ?>
-					<?php endif ?>
-				</div>
+			<div class="row">
+				<div class="col-sm-2 text-center" id="postedBy">
 
-				<!-- meta -->
-				<div id="meta">
-					<!-- category -->
-					<div style="background-color: lightgreen; width: fit-content;" class="rounded p-2 " id="category">
-						<?= $thread->category ?>
-					</div>
-					<!-- action -->
-					<?php if (session()->role === 'Admin' || session()->username === $thread->username) : ?>
-					<div id="action">
-						<!-- edit -->
-						<a href="<?= base_url('thread/edit/'.$thread->id) ?>" class="btn btn-info" role="button">
-							Edit <i class="fas fa-pen"></i>
-						</a>
-						<!-- delete -->
-						<a href="<?= base_url('thread/delete/'.$thread->id) ?>" class="btn btn-danger" role="button" onclick="return confirm('Anda yakin ingin menghapus thread ini?')">
-							Hapus <i class="fas fa-trash"></i>
+					<!-- created by -->
+					<div class="mb-2">
+						<div class="mb-1">Diposting oleh:</div>
+						<!-- avatar -->
+						<img src="<?= $thread->avatar ? base_url('uploads/avatar/'.$thread->avatar) : base_url('assets/images/user.jpeg') ?>" alt="<?= htmlspecialchars($thread->username).'\'s user avatar' ?>" class="rounded img-fluid" style="width: 100px; height: 100px">
+						<br>
+						<!-- username -->
+						<a class="font-weight-bold" href="<?= base_url('user/view/'.$thread->username) ?>">
+							<?= htmlspecialchars($thread->username) ?>
 						</a>
 					</div>
-					<!-- /.action -->
-					<?php endif ?>
+
+					<!-- created at -->
+					<div>
+						<div class="mb-1">Diposting pada:</div>
+						<span class="font-weight-bold"><?= $thread->created_at ?></span>
+					</div>
 				</div>
-				<!-- /.meta -->
+				<!-- /.col -->
+				
+				<div class="col">
+					<!-- content -->
+					<div class="mb-5">
+						<?php if(strlen($thread->content) > 500) : ?>
+						<?= substr($thread->content, 0, 200).'...' ?>
+						<?php else : ?>
+						<?= $thread->content ?>
+						<?php endif ?>
+					</div>
+
+					<!-- meta -->
+					<div id="meta">
+						<!-- category -->
+						<div class="rounded p-2" style="background-color: lightgreen; width: fit-content;" id="category">
+							<?= $thread->category ?>
+						</div>
+						<!-- action -->
+						<?php if (session()->role === 'Admin' || session()->username === $thread->username) : ?>
+						<div id="action">
+							<!-- edit -->
+							<a href="<?= base_url('thread/edit/'.$thread->id) ?>" class="btn btn-info" role="button">
+								Edit <i class="fas fa-pen"></i>
+							</a>
+							<!-- delete -->
+							<a href="<?= base_url('thread/delete/'.$thread->id) ?>" class="btn btn-danger" role="button" onclick="return confirm('Anda yakin ingin menghapus thread ini?')">
+								Hapus <i class="fas fa-trash"></i>
+							</a>
+						</div>
+						<!-- /.action -->
+						<?php endif ?>
+					</div>
+					<!-- /.meta -->
+				</div>
+				<!-- /.col -->
 			</div>
-			<!-- /.col -->
 		</div>
 		<!-- /.body -->
 	</div>
@@ -130,8 +146,8 @@ $submit = [
 	<?php else : ?>
 	<h3 class="text-center">
 		Tidak ada yang ditemukan... 
-		<i class="fas fa-wind"></i>
-		<i class="fas fa-leaf"></i>
+		<i class="fas fa-wind h3"></i>
+		<i class="fas fa-leaf h3"></i>
 	</h3 class="text-center">
 	<?php endif ?>
 </div>

@@ -128,8 +128,8 @@ $search = [
 				<?php else : ?>
 				<h3 class="text-center">
 					Tidak ada yang ditemukan... 
-					<i class="fas fa-wind"></i>
-					<i class="fas fa-leaf"></i>
+					<i class="fas fa-wind h3"></i>
+					<i class="fas fa-leaf h3"></i>
 				</h3 class="text-center">
 				<?php endif ?>
 

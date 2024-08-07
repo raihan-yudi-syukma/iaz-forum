@@ -276,6 +276,12 @@ option {
 }
 /* /.pagination */
 
+/* rating */
+.checked {
+	color: orange;
+}
+/* /.rating */
+
 /* ckeditor */
 .ck-editor__editable_inline {
 	min-height: 200px;

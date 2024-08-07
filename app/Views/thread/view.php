@@ -1,3 +1,21 @@
+<?php
+$thread_id = [
+	'type' => 'hidden',
+	'name' => 'thread_id',
+	'value' => $thread->id,
+];
+$user_id = [
+	'type' => 'hidden',
+	'name' => 'user_id',
+	'value' => session()->get('id'),
+];
+$star = [
+	'type' => 'hidden',
+	'name' => 'star',
+	'value' => 0,
+];
+?>
+
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
 
@@ -11,7 +29,68 @@
 		</h1>
 
 		<!-- rating -->
-		<button class="btn btn-success">Beri Rating</button>
+		<div>
+			<span>Rating:</span>
+			<?php if($rating) : ?>
+			<?php for($i = 0; $i < 5; $i++) : ?>
+			<?php if(($i + 1 ) <= $rating->rating) : ?>
+			<span class="fas fa-star checked"></span>
+			<?php else : ?>
+			<span class="fas fa-star"></span>
+			<?php endif ?>
+			<?php endfor ?>
+			<?php else : ?>
+			<span class="fas fa-star"></span>
+			<span class="fas fa-star"></span>
+			<span class="fas fa-star"></span>
+			<span class="fas fa-star"></span>
+			<span class="fas fa-star"></span>
+			<?php endif ?>
+		</div>
+
+		<!-- rating button -->
+		<?php if(session()->has('loggedIn')) : ?>
+		<button class="btn btn-warning mr-auto mt-1" id="ratingButton" type="button" data-toggle="modal" data-target="#ratingModal">
+			Beri Rating <i class="fas fa-star"></i>
+		</button>
+
+		<!-- rating modal -->
+		<div class="modal fade" id="ratingModal" tabindex="-1" aria-labelledby="ratingModal" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+
+					<!-- header -->
+					<div class="modal-header">
+						<h5 class="font-weight-bold">Beri rating Anda untuk thread ini</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<!-- body -->
+					<div class="modal-body text-center">
+						<i class="fas fa-star" id="star_1" onclick="rate(1)"></i>
+						<i class="fas fa-star" id="star_2" onclick="rate(2)"></i>
+						<i class="fas fa-star" id="star_3" onclick="rate(3)"></i>
+						<i class="fas fa-star" id="star_4" onclick="rate(4)"></i>
+						<i class="fas fa-star" id="star_5" onclick="rate(5)"></i>
+
+						<?= form_open('thread/rate') ?>
+						<?= form_input($thread_id) ?>
+						<?= form_input($user_id) ?>
+						<?= form_input($star) ?>
+					</div>
+
+					<!-- footer -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+						<button type="submit" class="btn btn-success">Rate</button>
+						<?= form_close() ?>
+					</div>
+				</div>
+			</div>
+		</div>
+		<?php endif ?>
 
 		<hr>
 
@@ -26,7 +105,7 @@
 					<img src="<?= $created_by->avatar ? base_url('uploads/avatar/'.$created_by->avatar) : base_url('assets/images/user.jpeg') ?>" alt="<?= htmlspecialchars($created_by->username).'\'s avatar' ?>" class="rounded img-fluid" style="width: 100px; height: 100px">
 					<br>
 					<!-- username -->
-					<a class="font-weight-bold" href="<?= base_url('user/view/'.$created_by->username) ?>">
+					<a class="font-weight-bold" href="<?= base_url('user/view/'.$created_by->id) ?>">
 						<?= htmlspecialchars($created_by->username) ?>
 					</a>
 				</div>
@@ -68,9 +147,9 @@
 				<!-- meta -->
 				<div id="meta">
 					<!-- category -->
-					<div style="background-color: lightgreen; width: fit-content;" class="rounded p-2 " id="category">
+					<a class="rounded p-2 text-dark text-decoration-none" href="<?= base_url('thread/index') ?>?keyword=&categoryId=<?= $category->id ?>&submit=" style="background-color: lightgreen; width: fit-content;" id="category">
 						<?= $category->category ?>
-					</div>
+					</a>
 					<!-- action -->
 					<?php if(session()->role === 'Admin' || session()->username === $created_by->username) : ?>
 					<div id="action">
@@ -90,19 +169,20 @@
 			</div>
 			<!-- /.col -->
 		</div>
-		<a href="<?= base_url('reply/add/'.$thread->id) ?>" class="ml-auto btn btn-primary" role="button">Buat Reply <i class="fas fa-pencil"></i></a>
 		<!-- /.body -->
+		<!-- reply -->
+		<a href="<?= base_url('reply/add/'.$thread->id) ?>" class="ml-auto btn btn-primary" role="button">Buat Reply <i class="fas fa-pencil"></i></a>
 	</div>
 	<!-- /.thread -->
 
 	<!-- replies count -->
-	<h4 class="mt-3 mb-3 p-2 rounded font-weight-bold" style="background-color: lightblue; width: fit-content">
-		<?php if(count($replies) < 1) : ?>
+	<h4 class="mt-3 mb-3 p-2 rounded font-weight-bold" style="background-color: lightblue">
+		<?php if($repliesCount < 1) : ?>
 		<?= 'Belum ada reply'; ?>
-		<?php elseif(count($replies) > 1) : ?>
-		<?= count($replies).' Replies'; ?>
+		<?php elseif($repliesCount  > 1) : ?>
+		<?= $repliesCount.' Replies'; ?>
 		<?php else : ?>
-		<?= count($replies).' Reply'; ?>
+		<?= $repliesCount.' Reply'; ?>
 		<?php endif ?>
 	</h4>
 	<!-- /.replies count -->
@@ -183,5 +263,62 @@
 	<?php endif ?>
 	<!-- /.replies -->
 </div>
+
+<script type="text/javascript">
+	// Save rating.
+	function rate(id) {
+		// Get star.
+		document.getElementsByName('star')[0].value = id;
+		switch(id) {
+			case 1 :
+				checked('star_1');
+				unchecked('star_2');
+				unchecked('star_3');
+				unchecked('star_4');
+				unchecked('star_5');
+			break;
+			case 2 :
+				checked('star_1');
+				checked('star_2');
+				unchecked('star_3');
+				unchecked('star_4');
+				unchecked('star_5');
+			break;
+			case 3 :
+				checked('star_1');
+				checked('star_2');
+				checked('star_3');
+				unchecked('star_4');
+				unchecked('star_5');
+			break;
+			case 4 :
+				checked('star_1');
+				checked('star_2');
+				checked('star_3');
+				checked('star_4');
+				unchecked('star_5');
+			break;
+			case 5 :
+				checked('star_1');
+				checked('star_2');
+				checked('star_3');
+				checked('star_4');
+				checked('star_5');
+			break;
+		}
+	}
+
+	// Check stars.
+	function checked(star_id) {
+		var star = document.getElementById(star_id);
+		star.classList.add('checked');
+	}
+
+	// Uncheck stars.
+	function unchecked(star_id) {
+		var star = document.getElementById(star_id);
+		star.classList.remove('checked');
+	}
+</script>
 
 <?= $this->endSection() ?>

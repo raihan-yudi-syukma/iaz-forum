@@ -9,8 +9,10 @@ class Thread extends BaseController
 	// Models.
 	protected $threadModel;
 	protected $categoryModel;
+	protected $ratingModel;
 	protected $replyModel;
 	protected $userModel;
+	protected $ratingViewModel;
 
 	// Services.
 	protected $validation;
@@ -22,8 +24,10 @@ class Thread extends BaseController
 		// Load model.
 		$this->threadModel = model('ThreadModel');
 		$this->categoryModel = model('CategoryModel');
+		$this->ratingModel = model('RatingModel');
 		$this->replyModel = model('ReplyModel');
 		$this->userModel = model('UserModel');
+		$this->ratingViewModel = model('RatingViewModel');
 
 		// Load service.
 		$this->validation = service('Validation');
@@ -48,9 +52,10 @@ class Thread extends BaseController
 		// Get all threads.
 		if ($data['categoryIdKey'] !== 0) {
 			$data['threads'] = $this->threadModel
-				->select('thread.id, thread.title, thread.content, category.category, thread.created_at, user.username, user.avatar')
+				->select('thread.id, thread.title, thread.content, category.category, thread.created_at, user.username, user.avatar, rating_view.star_count, rating_view.rating')
 				->join('category', 'thread.category_id=category.id', 'left')
 				->join('user', 'thread.created_by=user.id', 'left')
+				->join('rating_view', 'thread.id=rating_view.thread_id', 'left')
 				->groupStart()
 					->like('title', $data['keyword'])
 					->orLike('content', $data['keyword'])
@@ -59,9 +64,10 @@ class Thread extends BaseController
 				->paginate(10);
 		} else {
 			$data['threads'] = $this->threadModel
-				->select('thread.id, thread.title, thread.content, category.category, thread.created_at, user.username, user.avatar')
+				->select('thread.id, thread.title, thread.content, category.category, thread.created_at, user.username, user.avatar, rating_view.star_count, rating_view.rating')
 				->join('category', 'thread.category_id=category.id', 'left')
 				->join('user', 'thread.created_by=user.id', 'left')
+				->join('rating_view', 'thread.id=rating_view.thread_id', 'left')
 				->like('title', $data['keyword'])
 				->orLike('content', $data['keyword'])
 				->paginate(10);
@@ -100,9 +106,50 @@ class Thread extends BaseController
 			->join('user', 'user.id=reply.created_by', 'left')
 			->where('thread_id', $id)
 			->paginate(10);
+
+		// Get count of replies.
+		$data['repliesCount'] = $this->replyModel
+			->where('thread_id', $id)
+			->countAllResults();
+
+		$data['rating'] = $this->ratingViewModel
+			->where('thread_id', $id)
+			->first();
+
 		$data['pager'] = $this->replyModel->pager;
 		$data['title'] = $data['category']->category.' - '.$data['thread']->title;
 		return view('thread/view', $data);
+	}
+
+	// Insert rate.
+	public function rate()
+	{
+		// Get post.
+		$rating = $this->request->getPost();
+		if(!$rating) {
+			throw PageNotFoundException::forPageNotFound();
+		}
+
+		// Get rating by thread and user id.
+		$check = $this->ratingModel
+			->where('user_id', $rating['user_id'])
+			->where('thread_id', $rating['thread_id'])
+			->first();
+
+		// If rating found.
+		if($check) {
+			$rating['id'] = $check->id;
+		}
+
+		// Save rating.
+		if ($this->ratingModel->save($rating)) {
+			$this->session->setFlashdata('success', 'Rating Anda berhasil ditambahkan!');
+		} else {
+			$this->session->setFlashdata('errors', ['errors' => 'Rating Anda gagal ditambahkan!']);
+		}
+
+		// Redirect to thread view.
+		return redirect()->to(base_url('thread/view/'.$rating['thread_id']));
 	}
 
 	// Insert thread.
