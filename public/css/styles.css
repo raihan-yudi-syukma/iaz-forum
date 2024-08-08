@@ -20,7 +20,6 @@ html {
 body {
 	color: rgba(33, 37, 41, 1);
 	font-family: "Poppins", sans-serif;
-	margin-bottom: 100px;
 }
 body::-webkit-scrollbar {
 	width: 12px;	 
@@ -134,9 +133,6 @@ body::-webkit-scrollbar-thumb {
 /* footer */
 footer {
 	background-color: #181C32;
-	position: absolute;
-  bottom: 0;
-	height: 100px;
 }
 footer ul {
 	gap: 10px;
@@ -343,12 +339,6 @@ option {
 
 /* media query */
 @media (max-width: 1000px) {
-	/* body */
-	body {
-		margin-bottom: 170px;
-	}
-	/* /.body */
-
 	/* navbar */
 	#navbar ul {
 		flex-direction: column;
@@ -368,12 +358,6 @@ option {
 		display: none;
 	}
 	/* /.navbar */
-
-	/* footer */
-	footer {
-		height: 170px;
-	}
-	/* /.footer */
 
 	/* login page */
 	#loginPage {

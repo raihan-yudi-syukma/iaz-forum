@@ -49,7 +49,7 @@
     <script src="<?= base_url('js/bootstrap.min.js') ?>"></script>
 </head>
 
-<body> 
+<body class="d-flex flex-column min-vh-100"> 
     <header>
         <!-- navbar -->
         <nav id="navbar">
@@ -156,7 +156,7 @@
         <!-- /.breadcrumb -->
     </header>
 
-    <main class="container p-3">
+    <main class="container p-3 flex-grow-1">
         <!-- Show errors flashdata -->
         <?php if($errors !== null) : ?>
         <div class="alert-danger text-left">
@@ -185,7 +185,7 @@
         <?= $this->renderSection('content') ?>
     </main>
 
-    <footer class="footer p-2 w-100">
+    <footer class="footer p-2">
 
         <!-- copyright -->
         <p class="text-white text-center mb-2">&copy; <?= date('Y') ?> Az Zuhra Group. All Rights Reserved.</p>
