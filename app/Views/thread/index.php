@@ -83,7 +83,7 @@ $submit = [
 					<div class="mb-2">
 						<div class="mb-1">Diposting oleh:</div>
 						<!-- avatar -->
-						<img src="<?= $thread->avatar ? base_url('uploads/avatar/'.$thread->avatar) : base_url('assets/images/user.jpeg') ?>" alt="<?= htmlspecialchars($thread->username).'\'s user avatar' ?>" class="rounded img-fluid" style="width: 100px; height: 100px">
+						<img src="<?= $thread->avatar ? base_url('uploads/avatar/'.$thread->avatar) : base_url('assets/images/user-logo.jpeg') ?>" alt="<?= htmlspecialchars($thread->username).'\'s user avatar' ?>" class="rounded img-fluid" style="width: 100px; height: 100px">
 						<br>
 						<!-- username -->
 						<a class="font-weight-bold" href="<?= base_url('user/view/'.$thread->username) ?>">

@@ -102,7 +102,7 @@ $star = [
 				<div class="mb-2">
 					<div class="mb-1">Diposting oleh:</div>
 					<!-- avatar -->
-					<img src="<?= $created_by->avatar ? base_url('uploads/avatar/'.$created_by->avatar) : base_url('assets/images/user.jpeg') ?>" alt="<?= htmlspecialchars($created_by->username).'\'s avatar' ?>" class="rounded img-fluid" style="width: 100px; height: 100px">
+					<img src="<?= $created_by->avatar ? base_url('uploads/avatar/'.$created_by->avatar) : base_url('assets/images/user-logo.jpeg') ?>" alt="<?= htmlspecialchars($created_by->username).'\'s avatar' ?>" class="rounded img-fluid" style="width: 100px; height: 100px">
 					<br>
 					<!-- username -->
 					<a class="font-weight-bold" href="<?= base_url('user/view/'.$created_by->id) ?>">
@@ -208,7 +208,7 @@ $star = [
 				<div class="mb-2">
 					<div class="mb-1">Dibalas oleh:</div>
 					<!-- avatar -->
-					<img src="<?= $reply->avatar ? base_url('uploads/avatar/'.$reply->avatar) : base_url('assets/images/user.jpeg') ?>" alt="<?= htmlspecialchars($reply->username).'\'s user avatar' ?>" class="rounded img-fluid" style="width: 100px; height: 100px">
+					<img src="<?= $reply->avatar ? base_url('uploads/avatar/'.$reply->avatar) : base_url('assets/images/user-logo.jpeg') ?>" alt="<?= htmlspecialchars($reply->username).'\'s user avatar' ?>" class="rounded img-fluid" style="width: 100px; height: 100px">
 					<br>
 					<!-- username -->
 					<a class="font-weight-bold" href="<?= base_url('user/view/'.$reply->username) ?>">

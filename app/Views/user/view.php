@@ -36,7 +36,7 @@ $submit = [
 	<div class="row mt-3">
 		<!-- avatar -->
 		<div class="m-auto">
-			<img src="<?= $user->avatar ? base_url('uploads/avatar/'.$user->avatar) : base_url('assets/images/user-logo.jpeg')?>" alt="User's Avatar" class="rounded img-fluid" style="width: 300px; height: 300px">
+			<img src="<?= $user->avatar ? base_url('assets/images/'.$user->avatar) : base_url('assets/images/user-logo.jpeg')?>" alt="User's Avatar" class="rounded img-fluid" style="width: 300px; height: 300px">
 		</div>
 
 		<div class="col-md-8 table-responsive">
