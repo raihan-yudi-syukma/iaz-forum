@@ -56,7 +56,11 @@ $submit = [
 		<!-- header -->
 		<div class="card-header" style="background-color: purple;">
 			<a href="<?= base_url('thread/view/'.$thread->id) ?>" class="text-white h3 font-weight-bold text-decoration-none">
-				<?= htmlspecialchars(substr($thread->title, 0, 50)) ?>
+				<?php if(strlen($thread->title) > 50) : ?>
+				<?= substr($thread->title, 0, 50).'...' ?>
+				<?php else : ?>
+				<?= $thread->title ?>
+				<?php endif ?>
 			</a>
 		</div>
 
