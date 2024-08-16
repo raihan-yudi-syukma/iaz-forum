@@ -16,7 +16,11 @@ $submit = [
 	<div class="text-left mb-3">
 		<h1 class="font-weight-bold text-white rounded p-2 mb-3" style="background-color: purple;">
 			<i class="fas fa-user h1"></i>
-			Detail User: <strong class="h1 font-weight-bold"><?= $user->username ?></strong>
+			<?php if(strlen($user->username) > 20) : ?>
+			Detail User: <?= substr($user->username, 0, 20).'...' ?>
+			<?php else : ?>
+			Detail User: <?= $user->username ?>
+			<?php endif ?>
 		</h1>
 
 		<!-- user edit -->

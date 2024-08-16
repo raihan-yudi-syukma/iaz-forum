@@ -95,11 +95,19 @@
 
                         <!-- username -->
                         <span>
-                            <?= htmlspecialchars($session->username) ?>
+                            <?php if(strlen($session->username) > 10) : ?>
+                            <?= substr($session->username, 0, 10).'...' ?>
+                            <?php else : ?>
+                            <?= $session->username ?>
+                            <?php endif ?>
                             <br>
                             <small>
                                 <i class="fas fa-envelope"></i>
-                                <?= htmlspecialchars($session->email) ?>
+                                <?php if(strlen($session->email) > 10) : ?>
+                                <?= substr($session->email, 0, 10).'...' ?>
+                                <?php else : ?>
+                                <?= $session->email ?>
+                                <?php endif ?>
                             </small>
                         </span>
                     </a>
