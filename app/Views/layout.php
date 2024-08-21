@@ -58,7 +58,7 @@
                 <!-- logo -->
                 <li class="logo">
                     <a href="https://institutazzuhra.ac.id" target="_blank">
-                        <img src="<?= base_url('assets/images/iaz-logo-white.jpg') ?>" alt="Institut Az Zuhra Logo" class="rounded img-fluid" style="max-width: 100%; height: 100px">
+                        <img src="<?= base_url('assets/images/iaz-logo-white.jpg') ?>" alt="Institut Az Zuhra Logo" class="rounded img-fluid"   >
                     </a>
                 </li>
                     
