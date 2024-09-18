@@ -37,12 +37,12 @@
 
 				<!-- slide 1 -->
 				<div class="carousel-item active">
-					<img src="<?= base_url('assets/images/slide1.jpg') ?>" alt="Mahasiswa Manajemen Informatika" class="d-block active w-100">
+					<img src="<?= base_url('assets/images/slide1.jpg') ?>" alt="Mahasiswa Manajemen Informatika" class="d-block active w-100" style="height: 350px; object-fit: cover;">
 				</div>
 
 				<!-- slide 2 -->
 				<div class="carousel-item">
-					<img src="<?= base_url('assets/images/slide2.jpg') ?>" alt="Mahasiswa Teknik Komputer" class="d-block w-100">
+					<img src="<?= base_url('assets/images/slide2.jpg') ?>" alt="Mahasiswa Teknik Komputer" class="d-block w-100" style="height: 350px; object-fit: cover;">
 				</div>
 			</div>
 
@@ -82,7 +82,11 @@
 						<td class="text-success font-weight-bold"><?= $i++ ?></td>
 						<td>
 							<a class="text-decoration-none font-weight-bold" href="<?= base_url('thread/view/'.$thread->thread_id) ?>">
-								<?= htmlspecialchars(substr($thread->title, 0, 50)) ?>
+								<?php if(strlen($thread->title) > 50) : ?>
+								<?= substr($thread->title, 0, 50).'...' ?>
+								<?php else : ?>
+								<?= $thread->title ?>
+								<?php endif ?>
 							</a>
 						</td>
 					</tr>

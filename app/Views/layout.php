@@ -23,13 +23,13 @@
     <link rel="shortcut icon" type="image/jpg" href="<?= base_url('assets/images/iaz-logo.png') ?>">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="<?= base_url('css/bootstrap.min.css') ?>">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="<?= base_url('css/styles.css') ?>">
     <!-- Font Awesome -->
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/fontawesome6/css/all.css') ?>">
-
-    <!-- Set page background -->
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="<?= base_url('css/styles.css') ?>">
+    <!-- Custom CSS -->
     <style>
+        /* background */
         <?php if($title === 'Login' || $title === 'Register') : ?>
         body {
             background-image: url(<?= base_url('assets/images/login-background.jpg') ?>);
@@ -41,6 +41,13 @@
             background-color: #f4f4f4;
         }
         <?php endif ?>
+        /* font */
+        @font-face {
+            font-family: "Poppins";
+            src: url("<?= base_url('fonts/poppins/poppins.woff2') ?>") format("truetype");
+            font-weight: normal;
+            font-style: normal;
+        }
     </style>
 
     <!-- jQuery JS -->
@@ -58,7 +65,7 @@
                 <!-- logo -->
                 <li class="logo">
                     <a href="https://institutazzuhra.ac.id" target="_blank">
-                        <img src="<?= base_url('assets/images/iaz-logo-white.jpg') ?>" alt="Institut Az Zuhra Logo" class="rounded img-fluid"   >
+                        <img src="<?= base_url('assets/images/iaz-logo-white.jpg') ?>" alt="Institut Az Zuhra Logo" class="rounded img-fluid" style="height: 100px; width: 100px">
                     </a>
                 </li>
                     

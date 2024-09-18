@@ -11,12 +11,6 @@ $keyword = [
 	'value' => set_value('keyword', $keyword, true),
 	'maxlength' => 100,
 ];
-$search = [
-	'name' => 'search',
-	'type' => 'submit',
-	'value' => 'Cari',
-	'class' => 'button mb-3'
-];
 ?>
 
 <?= $this->extend('layout') ?>
@@ -48,12 +42,12 @@ $search = [
 
 				<!-- keyword -->
 				<div class="form-group d-flex flex-row align-items-center">
-					<?= form_label('Cari User:', 'keyword', ['class' => 'mr-2']) ?>
+					<?= form_label('User:', 'keyword', ['class' => 'mr-2']) ?>
 					<?= form_input($keyword) ?>
 				</div>
 
 				<div class="form-group d-flex flex-row align-items-center">
-					
+		
 					<!-- role -->
 					<?= form_label('Role:', 'roleKey', ['class' => 'mr-2']) ?>
 					<select name="roleKey" id="roleKey" required="true" class="mr-3">
@@ -76,7 +70,10 @@ $search = [
 				</div>
 
 				<!-- submit -->
-				<?= form_submit($search) ?>
+				<button type="submit" class="button d-block w-100 mb-3 rounded" name="submit">
+					Cari
+					<i class="fas fa-search"></i>
+				</button>
 				
 				<?= form_close() ?>
 				<!-- /.user search -->
