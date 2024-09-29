@@ -51,7 +51,7 @@ $keyword = [
 					<!-- role -->
 					<?= form_label('Role:', 'roleKey', ['class' => 'mr-2']) ?>
 					<select name="roleKey" id="roleKey" required="true" class="mr-3">
-						<?php foreach ($roles as $role) : ?>
+						<?php foreach ($roles as $role) : ?>	
 						<option value="<?= $role ?>" <?= set_select('roleKey', $role, $role === $roleKey ? true : false) ?>>
 							<?= $role ?>
 						</option>
