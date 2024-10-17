@@ -61,7 +61,7 @@ $submit = [
 					<!-- username -->
 					<tr>
 						<th scope="row">Username</th>
-						<td><?=  htmlspecialchars($user->username) ?></td>
+						<td><?= htmlspecialchars($user->username) ?></td>
 					</tr>
 					<!-- email -->
 					<tr>
@@ -80,7 +80,7 @@ $submit = [
 						<th scope="row">Alamat</th>
 						<td><?= htmlspecialchars($user->address) ?></td>
 					</tr>
-					<!-- phone_number -->
+					<!-- phone number -->
 					<tr>
 						<th scope="row">No. Telepon</th>
 						<td><?= $user->phone_number ?></td>
