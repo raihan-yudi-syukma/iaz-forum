@@ -68,6 +68,7 @@
 		<p class="text-justify lead">Kami dengan bangga mempersembahkan forum online ini sebagai wadah bagi seluruh mahasiswa Manajemen Informatika dan Teknik Komputer untuk saling berbagi informasi, berdiskusi, dan memperluas jaringan. Forum ini dirancang khusus untuk memenuhi kebutuhan akademik dan non-akademik kalian, serta menjadi tempat yang aman dan nyaman untuk berbagi ide, pengalaman, dan pengetahuan.</p>
 
 		<!-- top threads -->
+		<?php if($topThread->getNumRows() > 0) : ?>
 		<div>
 			<h3 class="text-success font-weight-bold"><i class="fas fa-comments h3"></i> Top Thread</h3>
 			<table class="table table-striped">
@@ -94,6 +95,7 @@
 				</tbody>
 			</table>
 		</div>
+		<?php endif ?>
 	
 	</div>
 

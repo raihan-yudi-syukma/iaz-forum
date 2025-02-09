@@ -219,10 +219,10 @@
                     <img src="<?= base_url('assets/images/instagram-logo.png') ?>" alt="instagram link">
                 </a>
             </li>
-            <!-- twitter -->
+            <!-- x -->
             <li>
                 <a href="https://x.com/" target="_blank">
-                    <img src="<?= base_url('assets/images/twitter-logo.png') ?>" alt="twitter link">
+                    <img src="<?= base_url('assets/images/x-logo.png') ?>" alt="twitter link">
                 </a>
             </li>
             <!-- whatsapp -->
